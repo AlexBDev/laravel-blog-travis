@@ -30,8 +30,8 @@ services:
                 - DSP_USER_UID=$DSP_USER_UID
                 - DSP_USER_GID=$DSP_USER_GID
         volumes:
-            - ./app:/usr/share/nginx/html
-            - ./sites:/etc/nginx/conf.d/
+            - $PWD/app:/usr/share/nginx/html
+            - $PWD/sites:/etc/nginx/conf.d/
         ports:
             - "80:80"
         links:
@@ -50,7 +50,7 @@ services:
                 - DSP_USER_UID=$DSP_USER_UID
                 - DSP_USER_GID=$DSP_USER_GID
         volumes:
-            - ./app:/usr/share/nginx/html:rw
+            - $PWD/app:/usr/share/nginx/html:rw
         links:
             - mysql
         depends_on:
