@@ -1,0 +1,78 @@
+version: "3.1"
+services:
+    jenkins:
+        image: jenkins:2.60.3
+        volumes: 
+            - jenkins-data:/var/jenkins_home
+        ports:
+            - "8080:8080"
+            - "5000:5000"
+
+    mysql:
+        image: mysql:5.7
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=$DSP_USER_USERNAME
+            - MYSQL_PASSWORD=$DSP_USER_USERNAME
+        volumes:
+            - mysql-data:/var/lib/mysql:rw
+        networks:
+            static-network:
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8888:80"
+        links:
+            - mysql
+        environment:
+            - PMA_HOST=mysql
+        networks:
+            static-network:
+
+    nginx:
+        build:
+            context: ./dockerfiles/nginx
+            args:
+                - DSP_USER_USERNAME=$DSP_USER_USERNAME
+                - DSP_USER_UID=$DSP_USER_UID
+                - DSP_USER_GID=$DSP_USER_GID
+        volumes:
+            - ./app:/usr/share/nginx/html
+            - ./sites:/etc/nginx/conf.d/
+        ports:
+            - "80:80"
+        links:
+            - php
+        depends_on:
+            - php
+        networks:
+            static-network:
+                ipv4_address: 172.45.0.10
+
+    php:
+        build:
+            context: ./dockerfiles/php
+            args:
+                - DSP_USER_USERNAME=$DSP_USER_USERNAME
+                - DSP_USER_UID=$DSP_USER_UID
+                - DSP_USER_GID=$DSP_USER_GID
+        volumes:
+            - ./app:/usr/share/nginx/html:rw
+        links:
+            - mysql
+        depends_on:
+            - mysql
+        networks:
+            static-network:
+
+
+networks:
+  static-network:
+      ipam:
+          config:
+              - subnet: 172.45.0.0/24
+
+volumes:
+    mysql-data:
+    jenkins-data:
