@@ -1,13 +1,5 @@
 version: "3.1"
 services:
-    jenkins:
-        image: jenkins:2.60.3
-        volumes: 
-            - jenkins-data:/var/jenkins_home
-        ports:
-            - "8080:8080"
-            - "5000:5000"
-
     mysql:
         image: mysql:5.7
         environment:
@@ -75,4 +67,3 @@ networks:
 
 volumes:
     mysql-data:
-    jenkins-data:
