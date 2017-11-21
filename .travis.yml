@@ -9,10 +9,13 @@ services:
 before_script:
   - cd app
   - cp .env.travis .env
-  - mysql -e 'create database homestead_test;'
+  - mysql -e 'create database blog;'
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
+  - php artisan migrate
+  - php vendor/bin/behat
+  - php vendor/bin/phpunit
 
 script:
   - vendor/bin/phpunit
