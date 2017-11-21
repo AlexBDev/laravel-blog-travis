@@ -1,0 +1,36 @@
+git:
+  depth: 3 # Fetch 3 last commit, clone is lighter
+
+language: php
+
+php:
+  - 7.1
+
+services:
+  - mysql
+
+cache:
+  directories:
+    - app/vendor
+
+before_install:
+  - mysql -e 'CREATE DATABASE blog;'
+  - cd app
+
+install:
+  - composer install --no-interaction # Need to be under install directive to cache vendor
+
+# Setup project
+before_script:
+  - cp .env.travis .env
+  - php artisan key:generate
+  - php artisan migrate
+
+# Execute test after setup
+script:
+  - php vendor/bin/phpunit
+  - php vendor/bin/behat
+
+after_success:
+  - env
+  
