@@ -1,5 +1,6 @@
 <?php
 
+use App\Task;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
@@ -42,5 +43,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         }
 
         $button->press();
+    }
+
+    /**
+     * @Then /^Save the task from filling content with "([^"]*)" and filling is_done with "([^"]*)"$/
+     */
+    public function saveTheTaskFromFillingContentWithAndFillingIs_doneWith($arg1, $arg2)
+    {
+        $task = new Task;
+        $task->content = $arg1;
+        $task->is_done = boolval($arg2);
+        $task->save();
     }
 }

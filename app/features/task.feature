@@ -1,15 +1,23 @@
-Feature: Task
-    We are able to do CRUD action on task
+Feature: Tasks manager
 
-    Scenario: I can got to task index
+    Scenario: Go to the Add new tasks page
         Given I am on "/task"
-        Then I should see "Task"
-
-    Scenario: I can go to create task from index
-        Given I am on "/task"
+        Then the response status code should be 200
         And I follow "Add New Task"
-        Then I should see "Create New Task"
+        Then I should be on "/task/create"
 
-    Scenario: I can create a new task
+    Scenario: Create new task done
         Given I am on "/task/create"
-        And I fill in "content" with "Toto"
+        When I fill in "content" with "Ceci est une tâche faite"
+        And I select "1" from "is_done"
+        And I press "Create"
+        Then Save the task from filling content with "Ceci est une tâche faite" and filling is_done with "true"
+        And I should be on "/task"
+
+    Scenario: Create new task undone
+        Given I am on "/task/create"
+        When I fill in "content" with "Ceci est une tâche à faire !"
+        And I select "0" from "is_done"
+        And I press "Create"
+        Then Save the task from filling content with "Ceci est une tâche à faire !" and filling is_done with "false"
+        And I should be on "/task"
