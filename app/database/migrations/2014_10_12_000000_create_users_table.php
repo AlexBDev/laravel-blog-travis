@@ -7,11 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 class CreateUsersTable extends Migration
 {
 
-    public function boot()
-    {
-        Schema::defaultStringLength(191);
-    }
-
     /**
      * Run the migrations.
      *
