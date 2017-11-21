@@ -35,3 +35,13 @@ $ docker-compose up -d
 - 1080:80 Maildev front web
 - 1025:25 Maildev smtp
 - 8888:80 PhpMyAdmin
+
+# Bootstrap laravel
+
+Create database from mysql or phpmyadmin (http://localhost:8888)
+
+```bash
+$ docker-compose exec php bash 
+$ composer install
+$ php artisan migrate
+```
