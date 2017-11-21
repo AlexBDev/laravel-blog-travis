@@ -1,3 +1,6 @@
+git:
+  depth: 3
+
 language: php
 
 php:
@@ -5,6 +8,8 @@ php:
 
 services:
   - mysql
+
+cache: vendor
 
 before_script:
   - cd app
@@ -14,8 +19,8 @@ before_script:
   - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
-  - php vendor/bin/behat
   - php vendor/bin/phpunit
+  - php vendor/bin/behat
 
 script:
   - vendor/bin/phpunit
