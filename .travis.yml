@@ -16,11 +16,13 @@ cache:
 before_install:
   - mysql -e 'CREATE DATABASE blog;'
 
+
+install:
+  - composer install --no-interaction
+
 before_script:
   - cd app
   - cp .env.travis .env
-  - composer self-update
-  - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
 
