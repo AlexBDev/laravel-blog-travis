@@ -6,6 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePasswordResetsTable extends Migration
 {
+    public function boot()
+    {
+        Schema::defaultStringLength(191);
+    }
+    
     /**
      * Run the migrations.
      *
