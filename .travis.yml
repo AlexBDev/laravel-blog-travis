@@ -9,7 +9,9 @@ php:
 services:
   - mysql
 
-cache: vendor
+cache:
+  directories:
+    - /home/travis/vendor
 
 before_install:
   - mysql -e 'CREATE DATABASE blog;'
@@ -23,5 +25,6 @@ before_script:
   - php artisan migrate
 
 script:
+  - cd app
   - php vendor/bin/phpunit
   - php vendor/bin/behat
