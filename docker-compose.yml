@@ -53,12 +53,22 @@ services:
             - $PWD/app:/usr/share/nginx/html:rw
         links:
             - mysql
+            - selenium
         depends_on:
             - mysql
+            - selenium
 
         networks:
             static-network:
+        extra_hosts:
+            - "blog.dev:172.45.0.10"
 
+    selenium:
+        image: selenium/hub:3.7.1
+        ports:
+            - "4444:4444"
+        networks:
+            static-network:
 
 networks:
   static-network:
