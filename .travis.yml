@@ -1,5 +1,5 @@
 git:
-  depth: 3
+  depth: 3 # Fetch 3 last commit, clone is lighter
 
 language: php
 
@@ -11,20 +11,22 @@ services:
 
 cache:
   directories:
-    - /home/travis/vendor
+    - app/vendor
 
 before_install:
   - mysql -e 'CREATE DATABASE blog;'
-
-before_script:
   - cd app
+
+install:
+  - composer install --no-interaction # Need to be under install directive to cache vendor
+
+# Setup project
+before_script:
   - cp .env.travis .env
-  - composer self-update
-  - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
 
+# Execute test after setup
 script:
-  - cd app
   - php vendor/bin/phpunit
   - php vendor/bin/behat
