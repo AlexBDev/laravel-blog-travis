@@ -11,16 +11,17 @@ services:
 
 cache: vendor
 
+before_install:
+  - mysql -e 'CREATE DATABASE blog;'
+
 before_script:
   - cd app
   - cp .env.travis .env
-  - mysql -e 'create database blog;'
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
-  - php vendor/bin/phpunit
-  - php vendor/bin/behat
 
 script:
-  - vendor/bin/phpunit
+  - php vendor/bin/phpunit
+  - php vendor/bin/behat
