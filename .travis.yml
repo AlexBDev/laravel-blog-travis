@@ -18,7 +18,6 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_8c393341f536_key -iv $encrypted_8c393341f536_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - cd app
 
-
 install:
   - composer install --no-interaction # Need to be under install directive to cache vendor
 
