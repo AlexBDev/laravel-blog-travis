@@ -15,6 +15,7 @@ cache:
 
 before_install:
   - mysql -e 'CREATE DATABASE blog;'
+  - openssl aes-256-cbc -K $encrypted_8c393341f536_key -iv $encrypted_8c393341f536_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - cd app
 
 install:
@@ -31,3 +32,11 @@ script:
   - php vendor/bin/phpunit
   - php vendor/bin/behat
   - ./vendor/bin/phpcs ./ --ignore=*/tests/*,*/vendor/*,*/storage/* --colors #Launch CodeSniffer tests without tests, vendor and storage folders
+
+after_success:
+  - mkdir ~/.ssh
+  - echo $SSH_PUBLIC > ~/.ssh/id_rsa.pub
+  - chmod 644  ~/.ssh/id_rsa.pub
+  - chmod 600  ~/.ssh/id_rsa
+  - eval "$(ssh-agent -s)"
+  - ssh -o "StrictHostKeyChecking=no" -p 6622 $SSH_USER@$SSH_HOST "git clone https://github.com/AlexBDev/laravel-blog-jenkins.git; cd laravel-blog-jenkins; git pull origin master; source user-permission.sh; docker-compose up -d; docker-compose exec -T php composer install"
