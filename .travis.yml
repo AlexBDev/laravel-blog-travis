@@ -30,3 +30,4 @@ before_script:
 script:
   - php vendor/bin/phpunit
   - php vendor/bin/behat
+  - ./vendor/bin/phpcs ./ --ignore=*/tests/*,*/vendor/*,*/storage/* --colors #Launch CodeSniffer tests without tests, vendor and storage folders
