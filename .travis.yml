@@ -31,8 +31,8 @@ before_script:
 script:
   - php vendor/bin/phpunit
   - php vendor/bin/behat
+  - ./vendor/bin/phpcs # Launch CodeSniffer tests (with phpcs.xml file config)
   - php vendor/bin/phploc app/
-
 
 after_success:
   - mkdir ~/.ssh
