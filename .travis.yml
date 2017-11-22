@@ -31,7 +31,7 @@ before_script:
 script:
   - php vendor/bin/phpunit
   - php vendor/bin/behat
-  - ./vendor/bin/phpcsbf # Fix codes with CodeSniffer
+  - ./vendor/bin/phpcbf # Fix codes with CodeSniffer
   - ./vendor/bin/phpcs # Launch CodeSniffer tests (with phpcs.xml file config)
 
 after_success:
