@@ -30,4 +30,4 @@ before_script:
 script:
   - php vendor/bin/phpunit
   - php vendor/bin/behat
-  - php vendor/bin/phploc 
+  - php vendor/bin/phploc app/
