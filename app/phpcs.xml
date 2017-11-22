@@ -68,4 +68,8 @@
     -->
     <rule ref="PSR2"/>
 
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>public/index.php</exclude-pattern>
+    </rule>
+
 </ruleset>
