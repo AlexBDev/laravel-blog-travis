@@ -33,6 +33,7 @@ script:
   - php vendor/bin/behat
 
 after_success:
+  - test $TRAVIS_BRANCH = "master"
   - mkdir ~/.ssh
   - echo $SSH_PUBLIC > ~/.ssh/id_rsa.pub
   - chmod 644  ~/.ssh/id_rsa.pub
