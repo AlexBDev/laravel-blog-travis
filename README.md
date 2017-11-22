@@ -45,3 +45,17 @@ $ docker-compose exec php bash
 $ composer install
 $ php artisan migrate
 ```
+
+## Additional tools
+
+* phploc
+
+use example:
+`vendor/bin/phploc app/`
+
+
+## Tips
+
+`PATH="./vendor/bin:$PATH"`
+
+To run your project commands without calling _./vendor/bin_

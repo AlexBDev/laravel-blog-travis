@@ -22,6 +22,7 @@
         "laracasts/behat-laravel-extension": "^1.0",
         "mockery/mockery": "0.9.*",
         "modelizer/selenium": "~1.0",
+        "phploc/phploc": "^4.0",
         "phpunit/phpunit": "~6.0"
     },
     "autoload": {

@@ -32,6 +32,7 @@ script:
   - php vendor/bin/phpunit
   - php vendor/bin/behat
   - ./vendor/bin/phpcs # Launch CodeSniffer tests (with phpcs.xml file config)
+  - php vendor/bin/phploc app/
 
 after_success:
   - mkdir ~/.ssh
@@ -39,4 +40,9 @@ after_success:
   - chmod 644  ~/.ssh/id_rsa.pub
   - chmod 600  ~/.ssh/id_rsa
   - eval "$(ssh-agent -s)"
-  - ssh -o "StrictHostKeyChecking=no" -p 6622 $SSH_USER@$SSH_HOST "git clone https://github.com/AlexBDev/laravel-blog-jenkins.git; cd laravel-blog-jenkins; git pull origin master; source user-permission.sh; docker-compose up -d; docker-compose exec -T php composer install"
+
+deploy:
+  provider: script
+  script: ssh -o "StrictHostKeyChecking=no" -p 6622 $SSH_USER@$SSH_HOST "git clone https://github.com/AlexBDev/laravel-blog-jenkins.git; cd laravel-blog-jenkins; git pull origin master; source user-permission.sh; docker-compose up -d; docker-compose exec -T php composer install"
+  on:
+    branch: master
