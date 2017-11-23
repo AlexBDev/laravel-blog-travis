@@ -26,6 +26,7 @@ before_script:
   - cp .env.travis .env
   - php artisan key:generate
   - php artisan migrate
+  - php artisan db:seed
 
 # Execute test after setup
 script:
