@@ -1,11 +1,11 @@
 @extends('layouts')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            {{--@include('admin.sidebar')--}}
+            @include('admin.sidebar')
 
-            <div class="col-md-9">
+            <div class="col-md-9 content">
                 <div class="panel panel-default">
                     <div class="panel-heading">Task</div>
                     <div class="panel-body">
@@ -13,16 +13,7 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
-                        <form method="GET" action="{{ url('/task') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
+                        
 
                         <br/>
                         <br/>
