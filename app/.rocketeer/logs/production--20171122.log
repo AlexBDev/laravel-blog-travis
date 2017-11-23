@@ -1,0 +1,114 @@
+20171122155404
+20171122155502
+20171122155533
+20171122155830
+20171122160010
+20171122160104
+20171122160408
+20171122160451
+20171122160703
+20171122161252
+20171122161434
+20171122161505
+20171122161517
+20171122161536
+20171122161612
+20171122161630
+20171122161657
+20171122161721
+20171122161809
+20171122161918
+20171122162013
+20171122162326
+20171122162435
+20171122170114
+20171122170250
+20171122170328
+20171122170432
+20171122170826
+20171122171036
+20171122171149
+/usr/bin/git
+/usr/bin/git
+$ /usr/bin/git --version
+/usr/bin/git --version
+git version 2.11.0
+git version 2.11.0
+
+/usr/bin/git
+/usr/bin/git
+$ /usr/bin/git clone "https://github.com/AlexBDev/laravel-blog-jenkins.git" "/home/alexis/www/laravel-blog-jenkins/releases/20171122171306" --branch="master" --depth="1"
+/usr/bin/git clone "https://github.com/AlexBDev/laravel-blog-jenkins.git" "/home/alexis/www/laravel-blog-jenkins/releases/20171122171306" --branch="master" --depth="1"
+Cloning into '/home/alexis/www/laravel-blog-jenkins/releases/20171122171306'...
+/usr/bin/git
+/usr/bin/git
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171122171306
+$ /usr/bin/git submodule update --init --recursive
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171122171306
+/usr/bin/git submodule update --init --recursive
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171122171306
+$ ls -lsa
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171122171306
+ls -lsa
+total 52
+4 drwxr-xr-x  6 alexis alexis 4096 Nov 22 17:13 .
+4 drwxr-xr-x 33 alexis alexis 4096 Nov 22 17:13 ..
+4 drwxr-xr-x 12 alexis alexis 4096 Nov 22 17:13 app
+4 -rwxr-xr-x  1 alexis alexis  139 Nov 22 17:13 bootsrap.sh
+4 -rw-r--r--  1 alexis alexis 1852 Nov 22 17:13 docker-compose.yml
+4 drwxr-xr-x  6 alexis alexis 4096 Nov 22 17:13 dockerfiles
+4 drwxr-xr-x  8 alexis alexis 4096 Nov 22 17:13 .git
+4 -rw-r--r--  1 alexis alexis 1680 Nov 22 17:13 id_rsa.enc
+4 -rw-r--r--  1 alexis alexis  697 Nov 22 17:13 install-docker.sh
+4 -rw-r--r--  1 alexis alexis 1011 Nov 22 17:13 README.md
+4 drwxr-xr-x  2 alexis alexis 4096 Nov 22 17:13 sites
+4 -rw-r--r--  1 alexis alexis 1238 Nov 22 17:13 .travis.yml
+4 -rwxr-xr-x  1 alexis alexis  108 Nov 22 17:13 user-permission.sh
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171122171306
+$ docker run --rm -v $PWD/app:/app -w /app composer/composer:php7 install --no-interaction --no-dev --prefer-dist
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171122171306
+docker run --rm -v $PWD/app:/app -w /app composer/composer:php7 install --no-interaction --no-dev --prefer-dist
+[32mLoading composer repositories with package information[39m
+[32mInstalling dependencies from lock file[39m
+[30;43mWarning: The lock file is not up to date with the latest changes in composer.json. You may be getting outdated dependencies. Run update to update them.[39;49m
+[37;41mYour requirements could not be resolved to an installable set of packages.[39;49m
+
+  Problem 1
+    - Installation request for symfony/console v3.3.13 -> satisfiable by symfony/console[v3.3.13].
+    - symfony/console v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 2
+    - Installation request for symfony/css-selector v3.3.13 -> satisfiable by symfony/css-selector[v3.3.13].
+    - symfony/css-selector v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 3
+    - Installation request for symfony/debug v3.3.13 -> satisfiable by symfony/debug[v3.3.13].
+    - symfony/debug v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 4
+    - Installation request for symfony/event-dispatcher v3.3.13 -> satisfiable by symfony/event-dispatcher[v3.3.13].
+    - symfony/event-dispatcher v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 5
+    - Installation request for symfony/finder v3.3.13 -> satisfiable by symfony/finder[v3.3.13].
+    - symfony/finder v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 6
+    - Installation request for symfony/http-foundation v3.3.13 -> satisfiable by symfony/http-foundation[v3.3.13].
+    - symfony/http-foundation v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 7
+    - Installation request for symfony/http-kernel v3.3.13 -> satisfiable by symfony/http-kernel[v3.3.13].
+    - symfony/http-kernel v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 8
+    - Installation request for symfony/process v3.3.13 -> satisfiable by symfony/process[v3.3.13].
+    - symfony/process v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 9
+    - Installation request for symfony/routing v3.3.13 -> satisfiable by symfony/routing[v3.3.13].
+    - symfony/routing v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 10
+    - Installation request for symfony/translation v3.3.13 -> satisfiable by symfony/translation[v3.3.13].
+    - symfony/translation v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 11
+    - Installation request for symfony/var-dumper v3.3.13 -> satisfiable by symfony/var-dumper[v3.3.13].
+    - symfony/var-dumper v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+  Problem 12
+    - symfony/console v3.3.13 requires php ^5.5.9|>=7.0.8 -> your PHP version (7.0.7) does not satisfy that requirement.
+    - psy/psysh v0.8.15 requires symfony/console ~2.3.10|^2.4.2|~3.0 -> satisfiable by symfony/console[v3.3.13].
+    - Installation request for psy/psysh v0.8.15 -> satisfiable by psy/psysh[v0.8.15].
