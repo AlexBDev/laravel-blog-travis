@@ -20,6 +20,7 @@ return [
         'deploy'  => [],
         'cleanup' => [],
         'dependencies' => [
+            'rsync -avzh ../current/app/vendor ./app/vendor/',
             'source ./user-permission.sh && export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose up -d --force-recreate --build',
             'export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T mysql mysql -u root -proot -e \'CREATE DATABASE blog;\'',
         ],

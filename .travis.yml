@@ -50,4 +50,4 @@ deploy:
   provider: script
   script: /home/travis/rocketeer deploy
   on:
-    branch: master
+    branch: setup/improve-deployment
