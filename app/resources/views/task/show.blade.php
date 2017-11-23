@@ -1,7 +1,7 @@
 @extends('layouts')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid no-gutter">
         <div class="row">
             @include('admin.sidebar')
 

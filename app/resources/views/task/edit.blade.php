@@ -1,11 +1,11 @@
 @extends('layouts')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             @include('admin.sidebar')
 
-            <div class="col-md-9">
+            <div class="col-md-9 content">
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Task #{{ $task->id }}</div>
                     <div class="panel-body">
