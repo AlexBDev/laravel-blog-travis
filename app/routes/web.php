@@ -19,3 +19,6 @@ Route::get(
 );
 
 Route::resource('task', 'TaskController');
+
+Route::resource('authors', 'AuthorsController');
+Route::resource('sounds', 'SoundsController');
