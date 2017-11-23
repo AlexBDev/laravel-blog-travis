@@ -49,4 +49,4 @@ deploy:
   provider: script
   script: /home/travis/rocketeer deploy
   on:
-    branch: setup/rocketeer
+    branch: master
