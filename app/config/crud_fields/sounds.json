@@ -1,0 +1,53 @@
+{
+    "fields": [
+        {
+            "name": "title",
+            "type": "string"
+        },
+        {
+            "name": "description",
+            "type": "text"
+        },
+        {
+            "name": "category",
+            "type": "select",
+            "options": {
+                "pop": "Pop",
+                "rock": "Rock",
+                "reggae": "Reggae",
+                "rap": "Rap",
+                "yoga": "Yoga",
+                "classic": "Classic"
+            }
+        },
+        {
+            "name": "author_id",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "thumbail",
+            "type": "string"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "column": "author_id",
+            "references": "id",
+            "on": "authors",
+            "onDelete": "set null"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "authors",
+            "type": "belongsTo",
+            "class": "App\\Author"
+        }
+    ],
+    "validations": [
+        {
+            "field": "title",
+            "rules": "required|max:15"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "biography",
+            "type": "text"
+        },
+        {
+            "name": "thumbail",
+            "type": "string"
+        }
+    ],
+    "validations": [
+        {
+            "field": "title",
+            "rules": "required|max:15"
+        }
+    ]
+}
