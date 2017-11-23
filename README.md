@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AlexBDev/laravel-blog-jenkins.svg?branch=master)](https://travis-ci.org/AlexBDev/laravel-blog-jenkins)
+
 ## Stack
 
 - PHP-FPM 7.1 (composer)

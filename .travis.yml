@@ -14,6 +14,10 @@ cache:
     - app/vendor
 
 before_install:
+  - wget http://rocketeer.autopergamene.eu/versions/rocketeer.phar
+  - chmod +x rocketeer.phar
+  - mv rocketeer.phar /home/travis/rocketeer
+  - /home/travis/rocketeer -v
   - mysql -e 'CREATE DATABASE blog;'
   - openssl aes-256-cbc -K $encrypted_8c393341f536_key -iv $encrypted_8c393341f536_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - cd app
@@ -43,6 +47,6 @@ after_success:
 
 deploy:
   provider: script
-  script: ssh -o "StrictHostKeyChecking=no" -p 6622 $SSH_USER@$SSH_HOST "git clone https://github.com/AlexBDev/laravel-blog-jenkins.git; cd laravel-blog-jenkins; git pull origin master; source user-permission.sh; docker-compose up -d; docker-compose exec -T php composer install"
+  script: /home/travis/rocketeer deploy
   on:
     branch: master

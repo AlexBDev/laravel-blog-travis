@@ -78,7 +78,7 @@
     @endif
 
     <div class="content">
-        <h1>Hello was updated</h1>
+        <h1>Was updated from Travis</h1>
         <a href="{{ route('task.index')  }}">Go to task</a>
     </div>
 </div>

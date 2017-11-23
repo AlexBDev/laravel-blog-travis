@@ -1,0 +1,259 @@
+20171123104459
+20171123105055
+20171123105227
+20171123105724
+20171123110443
+/usr/bin/git
+/usr/bin/git
+$ /usr/bin/git clone "https://github.com/AlexBDev/laravel-blog-jenkins.git" "/home/alexis/www/laravel-blog-jenkins/releases/20171123110948" --branch="setup/rocketeer" --depth="1"
+/usr/bin/git clone "https://github.com/AlexBDev/laravel-blog-jenkins.git" "/home/alexis/www/laravel-blog-jenkins/releases/20171123110948" --branch="setup/rocketeer" --depth="1"
+Cloning into '/home/alexis/www/laravel-blog-jenkins/releases/20171123110948'...
+/usr/bin/git
+/usr/bin/git
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ /usr/bin/git submodule update --init --recursive
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+/usr/bin/git submodule update --init --recursive
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ source ./user-permission.sh && export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose up -d --force-recreate --build
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+source ./user-permission.sh && export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose up -d --force-recreate --build
+Building php
+Step 1/24 : FROM php:7.1-fpm
+ ---> 903882e93577
+Step 2/24 : ARG DSP_USER_USERNAME
+ ---> Using cache
+ ---> 09136c6cae99
+Step 3/24 : ARG DSP_USER_UID
+ ---> Using cache
+ ---> a702a4eda7f7
+Step 4/24 : ARG DSP_USER_GID
+ ---> Using cache
+ ---> 5fcaa86e152e
+Step 5/24 : RUN addgroup --gid $DSP_USER_GID $DSP_USER_USERNAME
+ ---> Using cache
+ ---> ef8134b748cc
+Step 6/24 : RUN adduser --gecos "" --disabled-password --gid $DSP_USER_GID --uid $DSP_USER_UID $DSP_USER_USERNAME
+ ---> Using cache
+ ---> 70be49a58dcd
+Step 7/24 : RUN TERM=xterm
+ ---> Using cache
+ ---> 82e59fdf4add
+Step 8/24 : RUN apt-get clean && apt-get update
+ ---> Using cache
+ ---> 928a20d3d870
+Step 9/24 : RUN apt-get install -y         libfreetype6-dev         libjpeg62-turbo-dev         libmcrypt-dev         libpng12-dev         libxml2-dev         zlib1g-dev         libicu-dev         g++         libssl-dev         nano         sudo         libfontconfig1         libxrender1         git         python
+ ---> Using cache
+ ---> dc283c741bd4
+Step 10/24 : RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+ ---> Using cache
+ ---> c9d989877ce1
+Step 11/24 : RUN docker-php-ext-install -j$(nproc)         exif         iconv         opcache         bcmath         ctype         dom         fileinfo         gd         gettext         intl         json         mcrypt         mysqli         pcntl         pdo         pdo_mysql         phar         simplexml         zip
+ ---> Using cache
+ ---> 7ece25e983b6
+Step 12/24 : RUN pecl channel-update pecl
+ ---> Using cache
+ ---> 715cf422d6b4
+Step 13/24 : RUN pecl install apcu-5.1.7 && docker-php-ext-enable apcu
+ ---> Using cache
+ ---> 2a7983f0d4a3
+Step 14/24 : COPY conf/php.ini /usr/local/etc/php/php.ini
+ ---> Using cache
+ ---> 98ba79dc5c92
+Step 15/24 : COPY conf/www.conf.default /usr/local/etc/php-fpm.d/www.conf.default
+ ---> Using cache
+ ---> b1ce57fbb339
+Step 16/24 : ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
+
+ ---> Using cache
+ ---> e55518b0970a
+Step 17/24 : RUN chown $DSP_USER_USERNAME:$DSP_USER_USERNAME /usr/local/bin/composer && chmod 775 /usr/local/bin/composer
+ ---> Using cache
+ ---> 71c0db763761
+Step 18/24 : RUN echo "$DSP_USER_USERNAME:$DSP_USER_USERNAME" | chpasswd
+ ---> Using cache
+ ---> dab14b2974a3
+Step 19/24 : RUN echo "root:root" | chpasswd
+ ---> Using cache
+ ---> a292135b3ef0
+Step 20/24 : RUN usermod -a -G sudo $DSP_USER_USERNAME
+ ---> Using cache
+ ---> e0a44cc611c2
+Step 21/24 : RUN echo "$DSP_USER_USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
+ ---> Using cache
+ ---> 5d05d3d2c354
+Step 22/24 : USER $DSP_USER_USERNAME
+ ---> Using cache
+ ---> 6c948351872f
+Step 23/24 : RUN echo "alias sf='php bin/console'\n"  >> /home/$DSP_USER_USERNAME/.bashrc
+ ---> Using cache
+ ---> 919d0cc6e69b
+Step 24/24 : WORKDIR /usr/share/nginx/html
+ ---> Using cache
+ ---> 47de18dbb88e
+Successfully built 47de18dbb88e
+Successfully tagged laravelblog_php:latest
+Building nginx
+Step 1/8 : FROM nginx:1.13
+ ---> 40960efd7b8f
+Step 2/8 : ARG DSP_USER_USERNAME
+ ---> Using cache
+ ---> a5ab283c3ad9
+Step 3/8 : ARG DSP_USER_UID
+ ---> Using cache
+ ---> f7cc5e4de730
+Step 4/8 : ARG DSP_USER_GID
+ ---> Using cache
+ ---> 00d180bb5e33
+Step 5/8 : RUN addgroup --gid $DSP_USER_GID $DSP_USER_USERNAME
+ ---> Using cache
+ ---> a3e8485f1e5e
+Step 6/8 : RUN adduser --gecos "" --disabled-password --gid $DSP_USER_GID --uid $DSP_USER_UID $DSP_USER_USERNAME
+ ---> Using cache
+ ---> e3780b3718be
+Step 7/8 : RUN sed -i -e "s/user\s\+nginx;/user $DSP_USER_USERNAME;/" /etc/nginx/nginx.conf
+ ---> Using cache
+ ---> 11b21c02504d
+Step 8/8 : CMD nginx -g daemon off;
+ ---> Using cache
+ ---> 89b9d659fea7
+Successfully built 89b9d659fea7
+Successfully tagged laravelblog_nginx:latest
+Recreating laravelblog_selenium_1 ... 
+Recreating laravelblog_mysql_1 ... 
+Recreating laravelblog_selenium_1
+Recreating laravelblog_mysql_1
+[1A[2KRecreating laravelblog_selenium_1 ... [32mdone[0m[1B[1A[2KRecreating laravelblog_mysql_1 ... [32mdone[0m[1BRecreating laravelblog_phpmyadmin_1 ... 
+Recreating laravelblog_php_1 ... 
+Recreating laravelblog_phpmyadmin_1
+Recreating laravelblog_php_1
+[1A[2KRecreating laravelblog_php_1 ... [32mdone[0m[1B[1A[2KRecreating laravelblog_phpmyadmin_1 ... [32mdone[0m[1BRecreating laravelblog_nginx_1 ... 
+Recreating laravelblog_nginx_1
+[1A[2KRecreating laravelblog_nginx_1 ... [32mdone[0m[1B
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T mysql mysql -u root -proot -e 'CREATE DATABASE blog;'
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T mysql mysql -u root -proot -e 'CREATE DATABASE blog;'
+The DSP_USER_USERNAME variable is not set. Defaulting to a blank string.
+The DSP_USER_UID variable is not set. Defaulting to a blank string.
+The DSP_USER_GID variable is not set. Defaulting to a blank string.
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1007 (HY000) at line 1: Can't create database 'blog'; database exists
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T php composer install --no-interaction --no-dev --prefer-dist
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T php composer install --no-interaction --no-dev --prefer-dist
+The DSP_USER_USERNAME variable is not set. Defaulting to a blank string.
+The DSP_USER_UID variable is not set. Defaulting to a blank string.
+The DSP_USER_GID variable is not set. Defaulting to a blank string.
+Loading composer repositories with package information
+Installing dependencies from lock file
+Warning: The lock file is not up to date with the latest changes in composer.json. You may be getting outdated dependencies. Run update to update them.
+Package operations: 38 installs, 0 updates, 0 removals
+  - Installing vlucas/phpdotenv (v2.4.0): Downloading (connecting...)Downloading (0%)           Downloading (80%)Downloading (100%)
+  - Installing symfony/css-selector (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing tijsverkoyen/css-to-inline-styles (2.2.0): Downloading (connecting...)Downloading (0%)           Downloading (40%)Downloading (90%)Downloading (100%)
+  - Installing symfony/polyfill-mbstring (v1.6.0): Downloading (connecting...)Downloading (0%)           Downloading (35%)Downloading (90%)Downloading (100%)
+  - Installing symfony/var-dumper (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (40%)Downloading (45%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (75%)Downloading (80%)Downloading (95%)Downloading (100%)
+  - Installing symfony/routing (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing symfony/process (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (25%)Downloading (30%)Downloading (45%)Downloading (50%)Downloading (70%)Downloading (75%)Downloading (100%)
+  - Installing symfony/http-foundation (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing symfony/event-dispatcher (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (100%)
+  - Installing psr/log (1.0.2): Downloading (connecting...)Downloading (0%)           Downloading (15%)Downloading (100%)
+  - Installing symfony/debug (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (10%)Downloading (25%)Downloading (30%)Downloading (40%)Downloading (45%)Downloading (55%)Downloading (65%)Downloading (75%)Downloading (90%)Downloading (100%)
+  - Installing symfony/http-kernel (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing symfony/finder (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (100%)
+  - Installing symfony/console (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing doctrine/lexer (v1.0.1): Downloading (connecting...)Downloading (0%)           Downloading (100%)
+  - Installing egulias/email-validator (2.1.3): Downloading (connecting...)Downloading (0%)           Downloading (15%)Downloading (25%)Downloading (40%)Downloading (55%)Downloading (70%)Downloading (85%)Downloading (100%)
+  - Installing swiftmailer/swiftmailer (v6.0.2): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing paragonie/random_compat (v2.0.11): Downloading (connecting...)Downloading (0%)           Downloading (35%)Downloading (70%)Downloading (90%)Downloading (100%)
+  - Installing ramsey/uuid (3.7.1): Downloading (connecting...)Downloading (0%)           Downloading (15%)Downloading (25%)Downloading (30%)Downloading (40%)Downloading (55%)Downloading (65%)Downloading (70%)Downloading (80%)Downloading (95%)Downloading (100%)
+  - Installing psr/simple-cache (1.0.0): Downloading (connecting...)Downloading (0%)           Downloading (30%)Downloading (60%)Downloading (100%)
+  - Installing psr/container (1.0.0): Downloading (connecting...)Downloading (0%)           Downloading (75%)Downloading (100%)
+  - Installing symfony/translation (v3.3.13): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing nesbot/carbon (1.22.1): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (100%)
+  - Installing mtdowling/cron-expression (v1.2.1): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (100%)
+  - Installing monolog/monolog (1.23.0): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing league/flysystem (1.0.41): Downloading (connecting...)Downloading (0%)           Downloading (10%)Downloading (20%)Downloading (25%)Downloading (35%)Downloading (40%)Downloading (50%)Downloading (60%)Downloading (70%)Downloading (80%)Downloading (85%)Downloading (95%)Downloading (100%)
+  - Installing erusev/parsedown (1.6.4): Downloading (connecting...)Downloading (0%)           Downloading (70%)Downloading (100%)
+  - Installing doctrine/inflector (v1.2.0): Downloading (connecting...)Downloading (0%)           Downloading (90%)Downloading (100%)
+  - Installing laravel/framework (v5.5.21): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing laravelcollective/html (v5.5.1): Downloading (connecting...)Downloading (0%)           Downloading (40%)Downloading (65%)Downloading (100%)
+  - Installing appzcoder/crud-generator (v3.0.2): Downloading (connecting...)Downloading (0%)           Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (40%)Downloading (45%)Downloading (60%)Downloading (65%)Downloading (75%)Downloading (80%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing fideloper/proxy (3.3.4): Downloading (connecting...)Downloading (0%)           Downloading (25%)Downloading (50%)Downloading (75%)Downloading (100%)
+  - Installing jakub-onderka/php-console-color (0.1): Downloading (connecting...)Downloading (0%)           Downloading (50%)Downloading (100%)
+  - Installing nikic/php-parser (v3.1.2): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing jakub-onderka/php-console-highlighter (v0.3.2): Downloading (connecting...)Downloading (0%)           Downloading (65%)Downloading (100%)
+  - Installing dnoegel/php-xdg-base-dir (0.1): Downloading (connecting...)Downloading (0%)           Downloading (100%)
+  - Installing psy/psysh (v0.8.15): Downloading (connecting...)Downloading (0%)           Downloading (5%)Downloading (10%)Downloading (15%)Downloading (20%)Downloading (25%)Downloading (30%)Downloading (35%)Downloading (40%)Downloading (45%)Downloading (50%)Downloading (55%)Downloading (60%)Downloading (65%)Downloading (70%)Downloading (75%)Downloading (80%)Downloading (85%)Downloading (90%)Downloading (95%)Downloading (100%)
+  - Installing laravel/tinker (v1.0.2): Downloading (connecting...)Downloading (0%)           Downloading (45%)Downloading (100%)
+Generating optimized autoload files
+> Illuminate\Foundation\ComposerScripts::postAutoloadDump
+> @php artisan package:discover
+Discovered Package: laravelcollective/html
+Discovered Package: appzcoder/crud-generator
+Discovered Package: fideloper/proxy
+Discovered Package: laravel/tinker
+Package manifest generated successfully.
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ npm install
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+npm install
+bash: npm: command not found
+
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ cp app/.env.example app/.env
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+cp app/.env.example app/.env
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T php php artisan migrate --force
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+export COMPOSE_PROJECT_NAME=laravel_blog && docker-compose exec -T php php artisan migrate --force
+The DSP_USER_USERNAME variable is not set. Defaulting to a blank string.
+The DSP_USER_UID variable is not set. Defaulting to a blank string.
+The DSP_USER_GID variable is not set. Defaulting to a blank string.
+Nothing to migrate.
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ sudo chmod -R 755 /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite
+$ sudo chmod -R g+s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite
+$ sudo chown -R alexis:alexis /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+sudo chmod -R 755 /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite
+sudo chmod -R g+s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite
+sudo chown -R alexis:alexis /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite
+chmod: cannot access '/home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/app/database/production.sqlite': No such file or directory
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ sudo chmod -R 755 /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/storage
+$ sudo chmod -R g+s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/storage
+$ sudo chown -R alexis:alexis /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/storage
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+sudo chmod -R 755 /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/storage
+sudo chmod -R g+s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/storage
+sudo chown -R alexis:alexis /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/storage
+
+$ cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+$ sudo chmod -R 755 /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/public
+$ sudo chmod -R g+s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/public
+$ sudo chown -R alexis:alexis /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/public
+cd /home/alexis/www/laravel-blog-jenkins/releases/20171123110948
+sudo chmod -R 755 /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/public
+sudo chmod -R g+s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/public
+sudo chown -R alexis:alexis /home/alexis/www/laravel-blog-jenkins/releases/20171123110948/app/public
+
+$ rm -rf /home/alexis/www/laravel-blog-jenkins/current
+rm -rf /home/alexis/www/laravel-blog-jenkins/current
+
+$ ln -s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948 /home/alexis/www/laravel-blog-jenkins/current
+ln -s /home/alexis/www/laravel-blog-jenkins/releases/20171123110948 /home/alexis/www/laravel-blog-jenkins/current
+
+|=> Successfully deployed release 20171123110948
+$ rm -rf /home/alexis/www/laravel-blog-jenkins/releases/20171123104459
+rm -rf /home/alexis/www/laravel-blog-jenkins/releases/20171123104459
+
+|=> Removing <info>1 release</info> from the server
